@@ -1,5 +1,10 @@
 require("@matterlabs/hardhat-zksync-solc");
 
+const {
+  ARTHERA_TESTNET_RPC_ENDPOINT_URL,
+  ARTHERA_TESTNET_PRIVATE_KEY
+} = process.env
+
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   zksolc: {
@@ -24,6 +29,13 @@ module.exports = {
       chainId: 324,
       zksync: true,
     },
+    "arthera-testnet": {
+      url: ARTHERA_TESTNET_RPC_ENDPOINT_URL || "https://rpc-test.arthera.net",
+      accounts:
+        ARTHERA_TESTNET_PRIVATE_KEY !== undefined
+            ? [ARTHERA_TESTNET_PRIVATE_KEY]
+            : []
+      }
   },
   paths: {
     artifacts: "./artifacts-zk",
